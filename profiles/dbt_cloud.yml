@@ -1,0 +1,13 @@
+dbt_cloud:
+  outputs:
+    dev:
+      account: pg30470.us-central1.gcp
+      database: ENTAIN_POC
+      password: ENtaIN67$$$
+      role: ACCOUNTADMIN
+      schema: DBO
+      threads: 8
+      type: snowflake
+      user: ENTAIN
+      warehouse: COMPUTE_WH
+  targer: dev

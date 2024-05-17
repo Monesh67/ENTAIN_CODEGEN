@@ -1,0 +1,80 @@
+version: 2
+
+sources:
+  - name: STG
+    database: entain_poc
+    schema: stg
+    tables:
+      - name: CUSTOMERS
+        columns:
+          - name: customerid
+            data_type: number
+          - name: firstname
+            data_type: varchar
+          - name: lastname
+            data_type: varchar
+          - name: email
+            data_type: varchar
+          - name: address
+            data_type: varchar
+          - name: city
+            data_type: varchar
+          - name: state
+            data_type: varchar
+          - name: zipcode
+            data_type: varchar
+          - name: updated_at
+            data_type: timestamp_ntz
+
+      - name: EMPLOYEE
+        columns:
+          - name: id
+            data_type: number
+          - name: name
+            data_type: varchar
+          - name: age
+            data_type: number
+
+      - name: ORDERITEMS
+        columns:
+          - name: orderitemid
+            data_type: number
+          - name: orderid
+            data_type: number
+          - name: productid
+            data_type: number
+          - name: quantity
+            data_type: number
+          - name: unitprice
+            data_type: number
+          - name: updated_at
+            data_type: timestamp_ntz
+
+      - name: ORDERS
+        columns:
+          - name: orderid
+            data_type: number
+          - name: orderdate
+            data_type: timestamp_ntz
+          - name: customerid
+            data_type: number
+          - name: employeeid
+            data_type: number
+          - name: storeid
+            data_type: number
+          - name: status
+            data_type: varchar
+          - name: updated_at
+            data_type: timestamp_ntz
+
+      - name: PERSONAL_DETAILS
+        columns:
+          - name: rollno
+            data_type: number
+          - name: bloodgroup
+            data_type: varchar
+          - name: city
+            data_type: varchar
+          - name: modifieddate
+            data_type: timestamp_ntz
+

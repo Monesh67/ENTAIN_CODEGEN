@@ -1,0 +1,11 @@
+
+{{ config(materialized='incremental',unique_key=[
+  "ORDERID"
+])}}
+
+WITH ORDERS_FACT AS( SELECT OS.ORDERID,OS.CUSTOMERID,SUM(OT.UNITPRICE * OT.QUANTITY) AS REVENUE from {{ source('STG','ORDERS') }} AS OS join {{ source('STG','ORDERITEMS') }} AS OT ON OS.ORDERID = OT.ORDERID GROUP BY OS.ORDERID, OS.CUSTOMERID), CUSTOMERS_STG AS( SELECT CUSTOMERID,         CONCAT(FIRSTNAME,' ',LASTNAME) AS CUSTOMERNAME,         UPDATED_AT from {{ source('STG','CUSTOMERS') }} ) SELECT ORF.CUSTOMERID, CS.CUSTOMERNAME, ORF.REVENUE, CS.UPDATED_AT ,'{{ invocation_id }}' as DBT_InvocationId from  ORDERS_FACT AS ORF join CUSTOMERS_STG AS CS ON ORF.CUSTOMERID = CS.CUSTOMERID
+
+{% if is_incremental() %}
+where UPDATED_AT> (select max(UPDATED_AT) from {{this}})
+{% endif %}
+
